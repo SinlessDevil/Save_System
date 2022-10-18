@@ -80,14 +80,13 @@ public class PlayerPrefsManager : MonoBehaviour
         return arg;
     }
     public bool LoadBoolData(string nameKey, bool arg){
-        int arg1 = 0;
         if (PlayerPrefs.HasKey(nameKey))
         {
-            arg1 = PlayerPrefs.GetInt(nameKey);
-            arg = Convert.ToBoolean(arg1);
+            arg = Convert.ToBoolean(PlayerPrefs.GetInt(nameKey));
         }
         return arg;
     }
+
     // Methods Load Array
     public int[] LoadArrayIntData(string nameKey, int[] arg)
     {
@@ -96,6 +95,39 @@ public class PlayerPrefsManager : MonoBehaviour
             if (PlayerPrefs.HasKey(nameKey + i))
             {
                 arg[i] = PlayerPrefs.GetInt(nameKey + i);
+            }
+        }
+        return arg;
+    }
+    public float[] LoadArrayFloatData(string nameKey, float[] arg)
+    {
+        for (int i = 0; i < arg.Length; i++)
+        {
+            if (PlayerPrefs.HasKey(nameKey + i))
+            {
+                arg[i] = PlayerPrefs.GetFloat(nameKey + i);
+            }
+        }
+        return arg;
+    }
+    public string[] LoadArrayStringData(string nameKey, string[] arg)
+    {
+        for (int i = 0; i < arg.Length; i++)
+        {
+            if (PlayerPrefs.HasKey(nameKey + i))
+            {
+                arg[i] = PlayerPrefs.GetString(nameKey + i);
+            }
+        }
+        return arg;
+    }
+    public bool[] LoadArrayBoolData(string nameKey, bool[] arg)
+    {
+        for (int i = 0; i < arg.Length; i++)
+        {
+            if (PlayerPrefs.HasKey(nameKey + i))
+            {
+                arg[i] = Convert.ToBoolean(PlayerPrefs.GetInt(nameKey + i));
             }
         }
         return arg;
