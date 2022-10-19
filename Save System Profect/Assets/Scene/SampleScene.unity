@@ -430,7 +430,7 @@ GameObject:
   - component: {fileID: 628291007}
   - component: {fileID: 628291005}
   m_Layer: 0
-  m_Name: '[PLAYERPREFS MANAGER]'
+  m_Name: '[SAVE TO PLAYERPREFS MANAGER]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -588,8 +588,81 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &806737137
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 806737138}
+  - component: {fileID: 806737139}
+  m_Layer: 0
+  m_Name: '[SAVE TO JSON MANAGER]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &806737138
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806737137}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &806737139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806737137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dedb7d329a929e34db45ca0741950ea6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typePlatform: 0
+  characterid: 0
+  selectedCharacter:
+    id: 0
+    damage: 0
+    healt: 0
+    speed: 0
+    name: 
+  characters:
+  - id: 0
+    damage: 0
+    healt: 0
+    speed: 0
+    name: 
+  lastCarIndex: 0
+  selectedCar:
+    speed: 0
+    mass: 0
+    isPassenger: 0
+    name: 
+    doors: 
+  cars:
+  - speed: 0
+    mass: 0
+    isPassenger: 0
+    name: 
+    doors: 000000000000000000000000
+  savePath: 
+  saveFileName: data.json
 --- !u!1 &947137420
 GameObject:
   m_ObjectHideFlags: 0
@@ -807,7 +880,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1077484690
 GameObject:
@@ -1235,7 +1308,7 @@ Transform:
   m_Children:
   - {fileID: 1314080177}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1560134789
 GameObject:
@@ -1417,5 +1490,5 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
