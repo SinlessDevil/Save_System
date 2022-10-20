@@ -15,15 +15,15 @@ namespace Scripts.SaveToJson
         public TypePlatform typePlatform;
 
         [Header("Character")]
-        [SerializeField] private int characterid;
-        [SerializeField] private CharacterStruct selectedCharacter;
-        [SerializeField] private CharacterStruct[] characters;
+        [SerializeField] private int _characterid;
+        [SerializeField] private CharacterStruct _selectedCharacter;
+        [SerializeField] private CharacterStruct[] _characters;
         [Space(10)]
 
         [Header("Car")]
-        [SerializeField] private int lastCarIndex;
-        [SerializeField] private CarStruct selectedCar;
-        [SerializeField] private CarStruct[] cars;
+        [SerializeField] private int _lastCarIndex;
+        [SerializeField] private CarStruct _selectedCar;
+        [SerializeField] private CarStruct[] _cars;
         [Space(10)]
 
         [Header("Save Config")]
@@ -63,13 +63,13 @@ namespace Scripts.SaveToJson
         {
             GameDataStruct gameData = new GameDataStruct
             {
-                characterid = this.characterid,
-                selectedCharacter = this.selectedCharacter,
-                characters = this.characters,
+                characterid = this._characterid,
+                selectedCharacter = this._selectedCharacter,
+                characters = this._characters,
 
-                lastCarIndex = this.lastCarIndex,
-                selectedCar = this.selectedCar,
-                cars = this.cars
+                lastCarIndex = this._lastCarIndex,
+                selectedCar = this._selectedCar,
+                cars = this._cars
             };
 
             string json = JsonUtility.ToJson(gameData, true);
@@ -96,13 +96,13 @@ namespace Scripts.SaveToJson
                 string json = File.ReadAllText(savePath);
 
                 GameDataStruct gameDaraFromJson = JsonUtility.FromJson<GameDataStruct>(json);
-                this.characterid = gameDaraFromJson.characterid;
-                this.selectedCharacter = gameDaraFromJson.selectedCharacter;
-                this.characters = gameDaraFromJson.characters;
+                this._characterid = gameDaraFromJson.characterid;
+                this._selectedCharacter = gameDaraFromJson.selectedCharacter;
+                this._characters = gameDaraFromJson.characters;
 
-                this.lastCarIndex = gameDaraFromJson.lastCarIndex;
-                this.selectedCar = gameDaraFromJson.selectedCar;
-                this.cars = gameDaraFromJson.cars;
+                this._lastCarIndex = gameDaraFromJson.lastCarIndex;
+                this._selectedCar = gameDaraFromJson.selectedCar;
+                this._cars = gameDaraFromJson.cars;
             }
             catch (Exception e)
             {
