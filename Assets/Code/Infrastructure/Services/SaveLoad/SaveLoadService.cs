@@ -1,7 +1,6 @@
 ﻿using System;
 using Code.Infrastructure.Services.PersistenceProgress;
 using Code.Infrastructure.Services.PersistenceProgress.Player;
-using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using UnityEngine;
 
@@ -17,11 +16,9 @@ namespace Code.Infrastructure.Services.SaveLoad
         {
             _progressService = progressService;
         }
-
-        [Button]
+        
         public void SaveProgress() => Save(_progressService.PlayerData);
-
-        [Button]
+        
         public void Save(PlayerData playerData)
         {
             byte[] serializedValue = SerializationUtility.SerializeValue(playerData, DataFormat.JSON);
@@ -30,7 +27,6 @@ namespace Code.Infrastructure.Services.SaveLoad
             PlayerPrefs.Save();
         }
 
-        [Button]
         public PlayerData Load()
         {
             string base64String = PlayerPrefs.GetString(key: PlayerDataKey, string.Empty);
