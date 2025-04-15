@@ -73,13 +73,16 @@ public class PlayerData
 
 ## 📷 Screenshots
 
-![Exampl Code](https://github.com/SinlessDevil/Save_System/blob/main/Images/Exampl_Code_Use_1.png)
-![Exampl Code](https://github.com/SinlessDevil/Save_System/blob/main/Images/Exampl_Code_Use_2.png)
+| Save Example | Switch Method Example |
+|--------------|------------------------|
+| ![Code1](https://github.com/SinlessDevil/Save_System/blob/main/Images/Exampl_Code_Use_1.png) | ![Code2](https://github.com/SinlessDevil/Save_System/blob/main/Images/Exampl_Code_Use_2.png) |
 
 ![Tools](https://github.com/SinlessDevil/Save_System/blob/main/Images/Tools_1.png)
-![Tools](https://github.com/SinlessDevil/Save_System/blob/main/Images/Tools_1_Prefs.png)
-![Tools](https://github.com/SinlessDevil/Save_System/blob/main/Images/Tools_1_Json.png)
-![Tools](https://github.com/SinlessDevil/Save_System/blob/main/Images/Tools_1_xml.png)
+
+| PlayerPrefs | JSON | XML |
+|-------------|------|-----|
+| ![Prefs](https://github.com/SinlessDevil/Save_System/blob/main/Images/Tools_1_Prefs.png) | ![Json](https://github.com/SinlessDevil/Save_System/blob/main/Images/Tools_1_Json.png) | ![Xml](https://github.com/SinlessDevil/Save_System/blob/main/Images/Tools_1_xml.png) |
+
 
 ![Path](https://github.com/SinlessDevil/Save_System/blob/main/Images/Path.png)
 ---
@@ -96,11 +99,9 @@ saveLoadFacade.Save(SaveMethod.Json, playerData);
 PlayerData loaded = saveLoadFacade.Load(SaveMethod.PlayerPrefs);
 ```
 
-
 ---
 
 ## 📌 Related Projects
 - [Grid Level Editor](https://github.com/SinlessDevil/Grid_Level_Editor)
 - [Language Change Tools](https://github.com/SinlessDevil/Language_Change_Tools)
 - [Inventory Tetris](https://github.com/SinlessDevil/Inventory_Tetris)
-
