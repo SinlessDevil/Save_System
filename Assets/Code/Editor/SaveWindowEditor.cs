@@ -15,18 +15,23 @@ namespace Code.Editor
     {
         private const string PlayerPrefsKey = "PlayerData";
         private const string JsonFileName = "player_data.json";
+        private const string XmlFileName = "player_data.xml";
 
         private string SavePath => Application.persistentDataPath;
         private string JsonFilePath => Path.Combine(SavePath, JsonFileName);
+        private string XmlFilePath => Path.Combine(SavePath, XmlFileName);
 
         private Vector2 scrollPrefs;
         private Vector2 scrollJson;
+        private Vector2 scrollXml;
 
         private string DecodedPrefsData;
         private string DecodedJsonData;
+        private string DecodedXmlData;
 
         private string PrefsMessage = "❌ No PlayerPrefs data found.";
         private string JsonMessage = "❌ No JSON file found.";
+        private string XmlMessage = "❌ No XML file found.";
 
         [MenuItem("Tools/Save Window Editor")]
         private static void OpenWindow()
@@ -37,25 +42,20 @@ namespace Code.Editor
             window.Show();
         }
 
-        private void OnEnable()
-        {
-            Refresh();
-        }
+        private void OnEnable() => Refresh();
 
         protected override void DrawEditor(int index)
         {
-            DrawSection("🧠 PlayerPrefs Preview", GetPlayerPrefsStoragePath(), PrefsMessage, DecodedPrefsData, ref scrollPrefs,
-                Refresh, DeletePlayerPrefs);
-
+            DrawSection("🧠 PlayerPrefs Preview", GetPlayerPrefsPath(), PrefsMessage, DecodedPrefsData, ref scrollPrefs, Refresh, DeletePlayerPrefs);
             GUILayout.Space(20);
 
-            DrawSection("📄 JSON File Preview", JsonFilePath, JsonMessage, DecodedJsonData, ref scrollJson,
-                Refresh, DeleteJson);
+            DrawSection("📄 JSON File Preview", JsonFilePath, JsonMessage, DecodedJsonData, ref scrollJson, Refresh, DeleteJson);
+            GUILayout.Space(20);
+
+            DrawSection("📘 XML File Preview", XmlFilePath, XmlMessage, DecodedXmlData, ref scrollXml, Refresh, DeleteXml);
         }
 
-        private void DrawSection(string title, string path, string message, string data, ref Vector2 scrollPos,
-            Action refreshAction,
-            Action deleteAction)
+        private void DrawSection(string title, string path, string message, string data, ref Vector2 scrollPos, Action refreshAction, Action deleteAction)
         {
             SirenixEditorGUI.Title(title, null, TextAlignment.Left, true);
             SirenixEditorGUI.BeginBox();
@@ -94,6 +94,7 @@ namespace Code.Editor
         {
             RefreshPlayerPrefs();
             RefreshJsonFile();
+            RefreshXmlFile();
             Repaint();
         }
 
@@ -108,9 +109,7 @@ namespace Code.Editor
                     string base64 = PlayerPrefs.GetString(PlayerPrefsKey);
                     byte[] data = Convert.FromBase64String(base64);
                     var deserialized = Sirenix.Serialization.SerializationUtility.DeserializeValue<PlayerData>(data, DataFormat.JSON);
-                    string json = Encoding.UTF8.GetString(
-                        Sirenix.Serialization.SerializationUtility.SerializeValue(deserialized, DataFormat.JSON)
-                    );
+                    string json = Encoding.UTF8.GetString(Sirenix.Serialization.SerializationUtility.SerializeValue(deserialized, DataFormat.JSON));
                     DecodedPrefsData = json;
                     PrefsMessage = string.Empty;
                 }
@@ -149,6 +148,29 @@ namespace Code.Editor
             }
         }
 
+        private void RefreshXmlFile()
+        {
+            DecodedXmlData = string.Empty;
+
+            if (File.Exists(XmlFilePath))
+            {
+                try
+                {
+                    DecodedXmlData = File.ReadAllText(XmlFilePath);
+                    XmlMessage = string.Empty;
+                }
+                catch (Exception e)
+                {
+                    DecodedXmlData = $"❌ Failed to read XML:\n{e.Message}";
+                    XmlMessage = "❌ Failed to load XML file.";
+                }
+            }
+            else
+            {
+                XmlMessage = "❌ No XML file found.";
+            }
+        }
+
         private void DeletePlayerPrefs()
         {
             if (PlayerPrefs.HasKey(PlayerPrefsKey))
@@ -169,15 +191,25 @@ namespace Code.Editor
                 Refresh();
             }
         }
-        
-        private string GetPlayerPrefsStoragePath()
+
+        private void DeleteXml()
+        {
+            if (File.Exists(XmlFilePath))
+            {
+                File.Delete(XmlFilePath);
+                Debug.Log("🧹 XML file deleted.");
+                Refresh();
+            }
+        }
+
+        private string GetPlayerPrefsPath()
         {
 #if UNITY_EDITOR_WIN
             return $@"Windows Registry:\HKEY_CURRENT_USER\Software\Unity\UnityEditor\{Application.companyName}\{Application.productName}";
 #elif UNITY_EDITOR_OSX
-    return $"~/Library/Preferences/unity.{Application.companyName}.{Application.productName}.plist";
+            return $"~/Library/Preferences/unity.{Application.companyName}.{Application.productName}.plist";
 #else
-    return "📦 Platform not supported for PlayerPrefs path preview.";
+            return "📦 Platform not supported for PlayerPrefs path preview.";
 #endif
         }
     }
