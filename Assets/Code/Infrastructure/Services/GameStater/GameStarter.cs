@@ -34,6 +34,9 @@ namespace Code.Infrastructure.Services.GameStater
             
             SetUpRandomData();
             _saveLoadFacade.SaveProgress(SaveMethod.Json);
+            
+            SetUpRandomData();
+            _saveLoadFacade.SaveProgress(SaveMethod.Xml);
         }
         
         private void InitProgress()
