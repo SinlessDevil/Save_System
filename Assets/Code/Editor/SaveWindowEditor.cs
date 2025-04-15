@@ -33,6 +33,11 @@ namespace Code.Editor
         private string JsonMessage = "❌ No JSON file found.";
         private string XmlMessage = "❌ No XML file found.";
 
+        // Foldout toggles
+        private bool showPlayerPrefs = true;
+        private bool showJson = true;
+        private bool showXml = true;
+
         [MenuItem("Tools/Save Window Editor")]
         private static void OpenWindow()
         {
@@ -46,18 +51,18 @@ namespace Code.Editor
 
         protected override void DrawEditor(int index)
         {
-            DrawSection("🧠 PlayerPrefs Preview", GetPlayerPrefsPath(), PrefsMessage, DecodedPrefsData, ref scrollPrefs, Refresh, DeletePlayerPrefs);
+            DrawFoldoutSection(ref showPlayerPrefs, "🧠 PlayerPrefs Preview", GetPlayerPrefsPath(), PrefsMessage, DecodedPrefsData, ref scrollPrefs, Refresh, DeletePlayerPrefs);
             GUILayout.Space(20);
-
-            DrawSection("📄 JSON File Preview", JsonFilePath, JsonMessage, DecodedJsonData, ref scrollJson, Refresh, DeleteJson);
+            DrawFoldoutSection(ref showJson, "📄 JSON File Preview", JsonFilePath, JsonMessage, DecodedJsonData, ref scrollJson, Refresh, DeleteJson);
             GUILayout.Space(20);
-
-            DrawSection("📘 XML File Preview", XmlFilePath, XmlMessage, DecodedXmlData, ref scrollXml, Refresh, DeleteXml);
+            DrawFoldoutSection(ref showXml, "📘 XML File Preview", XmlFilePath, XmlMessage, DecodedXmlData, ref scrollXml, Refresh, DeleteXml);
         }
 
-        private void DrawSection(string title, string path, string message, string data, ref Vector2 scrollPos, Action refreshAction, Action deleteAction)
+        private void DrawFoldoutSection(ref bool foldout, string title, string path, string message, string data, ref Vector2 scroll, Action refresh, Action delete)
         {
-            SirenixEditorGUI.Title(title, null, TextAlignment.Left, true);
+            foldout = SirenixEditorGUI.Foldout(foldout, title);
+            if (!foldout) return;
+
             SirenixEditorGUI.BeginBox();
 
             EditorGUILayout.LabelField("📁 Save Location", EditorStyles.boldLabel);
@@ -67,7 +72,7 @@ namespace Code.Editor
 
             if (!string.IsNullOrEmpty(data))
             {
-                scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Height(300));
+                scroll = EditorGUILayout.BeginScrollView(scroll, GUILayout.Height(300));
                 EditorGUILayout.TextArea(data, GUILayout.ExpandHeight(true));
                 EditorGUILayout.EndScrollView();
             }
@@ -79,12 +84,12 @@ namespace Code.Editor
             GUILayout.Space(10);
             GUI.backgroundColor = new Color(0.6f, 0.9f, 1f);
             if (GUILayout.Button("🔄 Refresh", GUILayout.Height(35)))
-                refreshAction.Invoke();
+                refresh.Invoke();
 
             GUILayout.Space(5);
             GUI.backgroundColor = new Color(1f, 0.4f, 0.4f);
             if (GUILayout.Button("🗑 Delete", GUILayout.Height(35)))
-                deleteAction.Invoke();
+                delete.Invoke();
 
             GUI.backgroundColor = Color.white;
             SirenixEditorGUI.EndBox();
