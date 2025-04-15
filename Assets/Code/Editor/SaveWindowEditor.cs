@@ -1,20 +1,32 @@
 #if UNITY_EDITOR
 using System;
+using System.IO;
+using System.Text;
+using Code.Infrastructure.Services.PersistenceProgress.Player;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Serialization;
 using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEngine;
-using SerializationUtility = Sirenix.Serialization.SerializationUtility;
 
 namespace Code.Editor
 {
     public class SaveWindowEditor : OdinEditorWindow
     {
-        private const string PlayerDataKey = "PlayerData";
+        private const string PlayerPrefsKey = "PlayerData";
+        private const string JsonFileName = "player_data.json";
 
-        private string savePath => Application.persistentDataPath;
-        private Vector2 scrollPos;
+        private string SavePath => Application.persistentDataPath;
+        private string JsonFilePath => Path.Combine(SavePath, JsonFileName);
+
+        private Vector2 scrollPrefs;
+        private Vector2 scrollJson;
+
+        private string DecodedPrefsData;
+        private string DecodedJsonData;
+
+        private string PrefsMessage = "❌ No PlayerPrefs data found.";
+        private string JsonMessage = "❌ No JSON file found.";
 
         [MenuItem("Tools/Save Window Editor")]
         private static void OpenWindow()
@@ -25,9 +37,6 @@ namespace Code.Editor
             window.Show();
         }
 
-        public string DecodedPlayerData;
-        public string Message = "❌ No PlayerData found.";
-
         private void OnEnable()
         {
             Refresh();
@@ -35,81 +44,130 @@ namespace Code.Editor
 
         protected override void DrawEditor(int index)
         {
-            EditorGUILayout.Space();
+            DrawSection("🧠 PlayerPrefs Preview", SavePath, PrefsMessage, DecodedPrefsData, ref scrollPrefs,
+                Refresh, DeletePlayerPrefs);
 
-            // Main Box Group
-            SirenixEditorGUI.Title("🧠 PlayerPrefs Preview", null, TextAlignment.Left, true);
+            GUILayout.Space(20);
+
+            DrawSection("📄 JSON File Preview", JsonFilePath, JsonMessage, DecodedJsonData, ref scrollJson,
+                Refresh, DeleteJson);
+        }
+
+        private void DrawSection(string title, string path, string message, string data, ref Vector2 scrollPos,
+            Action refreshAction,
+            Action deleteAction)
+        {
+            SirenixEditorGUI.Title(title, null, TextAlignment.Left, true);
             SirenixEditorGUI.BeginBox();
-            
-            EditorGUILayout.LabelField("📁 Save Location", EditorStyles.boldLabel);
-            EditorGUILayout.HelpBox(savePath, MessageType.Info);
 
-            EditorGUILayout.Space();
-            
-            if (!string.IsNullOrEmpty(DecodedPlayerData))
+            EditorGUILayout.LabelField("📁 Save Location", EditorStyles.boldLabel);
+            EditorGUILayout.HelpBox(path, MessageType.Info);
+
+            GUILayout.Space(10);
+
+            if (!string.IsNullOrEmpty(data))
             {
                 scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Height(300));
-                EditorGUILayout.TextArea(DecodedPlayerData, GUILayout.ExpandHeight(true));
+                EditorGUILayout.TextArea(data, GUILayout.ExpandHeight(true));
                 EditorGUILayout.EndScrollView();
             }
             else
             {
-                EditorGUILayout.HelpBox(Message, MessageType.Warning);
+                EditorGUILayout.HelpBox(message, MessageType.Warning);
             }
 
             GUILayout.Space(10);
-
-            // Buttons
             GUI.backgroundColor = new Color(0.6f, 0.9f, 1f);
             if (GUILayout.Button("🔄 Refresh", GUILayout.Height(35)))
-                Refresh();
+                refreshAction.Invoke();
 
             GUILayout.Space(5);
-
             GUI.backgroundColor = new Color(1f, 0.4f, 0.4f);
-            if (GUILayout.Button("🗑 Delete PlayerData", GUILayout.Height(35)))
-                DeletePlayerData();
+            if (GUILayout.Button("🗑 Delete", GUILayout.Height(35)))
+                deleteAction.Invoke();
 
             GUI.backgroundColor = Color.white;
-
             SirenixEditorGUI.EndBox();
         }
 
         private void Refresh()
         {
-            DecodedPlayerData = string.Empty;
+            RefreshPlayerPrefs();
+            RefreshJsonFile();
+            Repaint();
+        }
 
-            if (PlayerPrefs.HasKey(PlayerDataKey))
+        private void RefreshPlayerPrefs()
+        {
+            DecodedPrefsData = string.Empty;
+
+            if (PlayerPrefs.HasKey(PlayerPrefsKey))
             {
                 try
                 {
-                    string base64 = PlayerPrefs.GetString(PlayerDataKey);
+                    string base64 = PlayerPrefs.GetString(PlayerPrefsKey);
                     byte[] data = Convert.FromBase64String(base64);
-                    object deserialized = SerializationUtility.DeserializeValue<object>(data, DataFormat.JSON);
-                    DecodedPlayerData = JsonUtility.ToJson(deserialized, true);
-                    Message = string.Empty;
+                    var deserialized = Sirenix.Serialization.SerializationUtility.DeserializeValue<PlayerData>(data, DataFormat.JSON);
+                    string json = Encoding.UTF8.GetString(
+                        Sirenix.Serialization.SerializationUtility.SerializeValue(deserialized, DataFormat.JSON)
+                    );
+                    DecodedPrefsData = json;
+                    PrefsMessage = string.Empty;
                 }
                 catch (Exception e)
                 {
-                    DecodedPlayerData = $"❌ Failed to decode PlayerData:\n{e.Message}";
+                    DecodedPrefsData = $"❌ Failed to decode PlayerPrefs:\n{e.Message}";
+                    PrefsMessage = "❌ PlayerPrefs data decode failed.";
                 }
             }
             else
             {
-                Message = "❌ No PlayerData found.";
+                PrefsMessage = "❌ No PlayerPrefs data found.";
             }
-
-            Repaint();
         }
 
-        private void DeletePlayerData()
+        private void RefreshJsonFile()
         {
-            if (PlayerPrefs.HasKey(PlayerDataKey))
+            DecodedJsonData = string.Empty;
+
+            if (File.Exists(JsonFilePath))
             {
-                PlayerPrefs.DeleteKey(PlayerDataKey);
+                try
+                {
+                    DecodedJsonData = File.ReadAllText(JsonFilePath);
+                    JsonMessage = string.Empty;
+                }
+                catch (Exception e)
+                {
+                    DecodedJsonData = $"❌ Failed to read JSON:\n{e.Message}";
+                    JsonMessage = "❌ Failed to load JSON file.";
+                }
+            }
+            else
+            {
+                JsonMessage = "❌ No JSON file found.";
+            }
+        }
+
+
+        private void DeletePlayerPrefs()
+        {
+            if (PlayerPrefs.HasKey(PlayerPrefsKey))
+            {
+                PlayerPrefs.DeleteKey(PlayerPrefsKey);
                 PlayerPrefs.Save();
+                Debug.Log("🧹 PlayerPrefs deleted.");
                 Refresh();
-                Debug.Log("🧹 PlayerData deleted.");
+            }
+        }
+
+        private void DeleteJson()
+        {
+            if (File.Exists(JsonFilePath))
+            {
+                File.Delete(JsonFilePath);
+                Debug.Log("🧹 JSON file deleted.");
+                Refresh();
             }
         }
     }
