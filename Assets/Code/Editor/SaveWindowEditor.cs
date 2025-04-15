@@ -44,7 +44,7 @@ namespace Code.Editor
 
         protected override void DrawEditor(int index)
         {
-            DrawSection("🧠 PlayerPrefs Preview", SavePath, PrefsMessage, DecodedPrefsData, ref scrollPrefs,
+            DrawSection("🧠 PlayerPrefs Preview", GetPlayerPrefsStoragePath(), PrefsMessage, DecodedPrefsData, ref scrollPrefs,
                 Refresh, DeletePlayerPrefs);
 
             GUILayout.Space(20);
@@ -149,7 +149,6 @@ namespace Code.Editor
             }
         }
 
-
         private void DeletePlayerPrefs()
         {
             if (PlayerPrefs.HasKey(PlayerPrefsKey))
@@ -169,6 +168,17 @@ namespace Code.Editor
                 Debug.Log("🧹 JSON file deleted.");
                 Refresh();
             }
+        }
+        
+        private string GetPlayerPrefsStoragePath()
+        {
+#if UNITY_EDITOR_WIN
+            return $@"Windows Registry:\HKEY_CURRENT_USER\Software\Unity\UnityEditor\{Application.companyName}\{Application.productName}";
+#elif UNITY_EDITOR_OSX
+    return $"~/Library/Preferences/unity.{Application.companyName}.{Application.productName}.plist";
+#else
+    return "📦 Platform not supported for PlayerPrefs path preview.";
+#endif
         }
     }
 }
