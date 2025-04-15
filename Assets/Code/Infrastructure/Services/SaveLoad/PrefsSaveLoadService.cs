@@ -6,13 +6,13 @@ using UnityEngine;
 
 namespace Code.Infrastructure.Services.SaveLoad
 {
-    public class SaveLoadService : ISaveLoadService
+    public class PrefsSaveLoadService : ISaveLoadService
     {
         private const string PlayerDataKey = "PlayerData";
         
         private readonly IPersistenceProgressService _progressService;
 
-        public SaveLoadService(IPersistenceProgressService progressService)
+        public PrefsSaveLoadService(IPersistenceProgressService progressService)
         {
             _progressService = progressService;
         }

@@ -60,13 +60,13 @@ namespace Code.Editor
             GUILayout.Space(10);
 
             // Buttons
-            GUI.backgroundColor = new Color(0.6f, 0.9f, 1f); // голубая
+            GUI.backgroundColor = new Color(0.6f, 0.9f, 1f);
             if (GUILayout.Button("🔄 Refresh", GUILayout.Height(35)))
                 Refresh();
 
             GUILayout.Space(5);
 
-            GUI.backgroundColor = new Color(1f, 0.4f, 0.4f); // красная
+            GUI.backgroundColor = new Color(1f, 0.4f, 0.4f);
             if (GUILayout.Button("🗑 Delete PlayerData", GUILayout.Height(35)))
                 DeletePlayerData();
 

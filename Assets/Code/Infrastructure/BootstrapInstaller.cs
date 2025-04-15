@@ -27,8 +27,10 @@ namespace Code.Infrastructure
             Container.BindInterfacesTo<UIFactory>().AsSingle();
         }
         
-        private void BindSaveLoad() =>
-            Container.Bind<ISaveLoadService>().To<SaveLoadService>().AsSingle();
+        private void BindSaveLoad()
+        {
+            Container.Bind<ISaveLoadFacade>().To<UnifiedSaveLoadFacade>().AsSingle();
+        }
 
         private void BindProgressData() =>
             Container.Bind<IPersistenceProgressService>().To<PersistenceProgressService>().AsSingle();
