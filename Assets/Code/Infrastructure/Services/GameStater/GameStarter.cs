@@ -1,9 +1,7 @@
-using System.Collections.Generic;
 using Code.Infrastructure.Factory;
 using Code.Infrastructure.Services.PersistenceProgress;
 using Code.Infrastructure.Services.PersistenceProgress.Player;
 using Code.Infrastructure.Services.SaveLoad;
-using UnityEditor;
 using UnityEngine;
 
 namespace Code.Infrastructure.Services.GameStater
@@ -11,16 +9,16 @@ namespace Code.Infrastructure.Services.GameStater
     public class GameStarter : IGameStarter
     {
         private readonly IPersistenceProgressService _progressService;
-        private readonly ISaveLoadService _saveLoadService;
+        private readonly ISaveLoadFacade _saveLoadFacade;
         private readonly IUIFactory _uiFactory;
         
         public GameStarter(
             IPersistenceProgressService progressService,
-            ISaveLoadService saveLoadService, 
+            ISaveLoadFacade saveLoadFacade, 
             IUIFactory uiFactory)
         {
             _progressService = progressService;
-            _saveLoadService = saveLoadService;
+            _saveLoadFacade = saveLoadFacade;
             _uiFactory = uiFactory;
         }
 
@@ -32,6 +30,8 @@ namespace Code.Infrastructure.Services.GameStater
             InitUI();
             
             SetUpRandomData();
+            _saveLoadFacade.SaveProgress(SaveMethod.PlayerPrefs);
+            _saveLoadFacade.SaveProgress(SaveMethod.Json);
         }
         
         private void InitProgress()
@@ -48,8 +48,8 @@ namespace Code.Infrastructure.Services.GameStater
         private PlayerData LoadProgress()
         {
             Debug.Log("LoadProgress");
-            
-            return _saveLoadService.Load();
+
+            return _saveLoadFacade.Load(SaveMethod.PlayerPrefs);
         }
 
         private PlayerData SetUpBaseProgress()
@@ -109,10 +109,8 @@ namespace Code.Infrastructure.Services.GameStater
             };
 
             _progressService.PlayerData = progress;
-            _saveLoadService.SaveProgress();
 
             Debug.Log("✅ Random player data saved.");
         }
-
     }
 }
