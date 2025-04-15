@@ -25,6 +25,7 @@ namespace Code.Infrastructure.Services.SaveLoad
             string base64String = Convert.ToBase64String(serializedValue);
             PlayerPrefs.SetString(key: PlayerDataKey, base64String);
             PlayerPrefs.Save();
+            Debug.Log($"💾 PlayerData saved to PlayerPrefs: {PlayerDataKey}");
         }
 
         public PlayerData Load()
