@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6263bff5ca924384aaded10b4becf4d9, type: 3}
+  m_Name: LevelBalance
+  m_EditorClassIdentifier: 
+  Levels:
+  - LevelId: 1
+    LevelName: Forest Start
+    RequiredXP: 100
+    Reward:
+      Gold: 50
+      Gems: 5
+    RewardItems:
+    - sword_wood
+    - potion_small
+    EnemyWaves:
+    - EnemyType: goblin
+      Count: 5
+      SpawnDelay: 1
+    - EnemyType: orc
+      Count: 2
+      SpawnDelay: 2
+    IsBossLevel: 0
+    UnlockAtLevel: 0
+    UnlockConditions:
+    - Description: No special condition
+      RequiresItem: 0
+      RequiredItemId: 
+    ActiveBuffs:
+    - BuffName: "Beginner\u2019s Luck"
+      Duration: 30
+      Value: 1.2
+    EventData:
+      HasEvent: 0
+      EventName: 
+      Description: 
+  - LevelId: 2
+    LevelName: Cave of Trials
+    RequiredXP: 300
+    Reward:
+      Gold: 100
+      Gems: 10
+    RewardItems:
+    - shield_basic
+    - potion_medium
+    EnemyWaves:
+    - EnemyType: bat
+      Count: 8
+      SpawnDelay: 0.8
+    - EnemyType: spider
+      Count: 4
+      SpawnDelay: 1.2
+    IsBossLevel: 0
+    UnlockAtLevel: 1
+    UnlockConditions:
+    - Description: Defeat Level 1
+      RequiresItem: 0
+      RequiredItemId: 
+    ActiveBuffs:
+    - BuffName: Dark Vision
+      Duration: 45
+      Value: 1.1
+    EventData:
+      HasEvent: 1
+      EventName: Darkness Falls
+      Description: Visibility is reduced in this level
+  - LevelId: 3
+    LevelName: Dragon's Peak
+    RequiredXP: 700
+    Reward:
+      Gold: 300
+      Gems: 25
+    RewardItems:
+    - dragon_slayer
+    - revive_token
+    EnemyWaves:
+    - EnemyType: dragon
+      Count: 1
+      SpawnDelay: 5
+    IsBossLevel: 1
+    UnlockAtLevel: 2
+    UnlockConditions:
+    - Description: Must own Fire Shield
+      RequiresItem: 1
+      RequiredItemId: fire_shield
+    ActiveBuffs:
+    - BuffName: Boss Rage
+      Duration: 60
+      Value: 2
+    EventData:
+      HasEvent: 1
+      EventName: Skyfall
+      Description: Fireballs rain every 10 seconds

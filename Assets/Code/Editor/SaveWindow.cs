@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace Code.Editor
 {
-    public class SaveWindowEditor : OdinEditorWindow
+    public class SaveWindow : OdinEditorWindow
     {
         private const string PlayerPrefsKey = "PlayerData";
         private const string JsonFileName = "player_data.json";
@@ -29,20 +29,20 @@ namespace Code.Editor
         private string DecodedJsonData;
         private string DecodedXmlData;
 
-        private string PrefsMessage = "❌ No PlayerPrefs data found.";
-        private string JsonMessage = "❌ No JSON file found.";
-        private string XmlMessage = "❌ No XML file found.";
+        private string PrefsMessage = "No PlayerPrefs data found.";
+        private string JsonMessage = "No JSON file found.";
+        private string XmlMessage = "No XML file found.";
 
         // Foldout toggles
         private bool showPlayerPrefs = true;
         private bool showJson = true;
         private bool showXml = true;
 
-        [MenuItem("Tools/Save Window Editor")]
+        [MenuItem("Tools/Save Window/All Saves Window")]
         private static void OpenWindow()
         {
-            var window = GetWindow<SaveWindowEditor>();
-            window.titleContent = new GUIContent("Save Window Editor");
+            var window = GetWindow<SaveWindow>();
+            window.titleContent = new GUIContent("All Saves Window");
             window.minSize = new Vector2(500, 600);
             window.Show();
         }
@@ -51,11 +51,11 @@ namespace Code.Editor
 
         protected override void DrawEditor(int index)
         {
-            DrawFoldoutSection(ref showPlayerPrefs, "🧠 PlayerPrefs Preview", GetPlayerPrefsPath(), PrefsMessage, DecodedPrefsData, ref scrollPrefs, Refresh, DeletePlayerPrefs);
+            DrawFoldoutSection(ref showPlayerPrefs, "PlayerPrefs Preview", GetPlayerPrefsPath(), PrefsMessage, DecodedPrefsData, ref scrollPrefs, Refresh, DeletePlayerPrefs);
             GUILayout.Space(20);
-            DrawFoldoutSection(ref showJson, "📄 JSON File Preview", JsonFilePath, JsonMessage, DecodedJsonData, ref scrollJson, Refresh, DeleteJson);
+            DrawFoldoutSection(ref showJson, "JSON File Preview", JsonFilePath, JsonMessage, DecodedJsonData, ref scrollJson, Refresh, DeleteJson);
             GUILayout.Space(20);
-            DrawFoldoutSection(ref showXml, "📘 XML File Preview", XmlFilePath, XmlMessage, DecodedXmlData, ref scrollXml, Refresh, DeleteXml);
+            DrawFoldoutSection(ref showXml, "XML File Preview", XmlFilePath, XmlMessage, DecodedXmlData, ref scrollXml, Refresh, DeleteXml);
         }
 
         private void DrawFoldoutSection(ref bool foldout, string title, string path, string message, string data, ref Vector2 scroll, Action refresh, Action delete)
@@ -65,7 +65,7 @@ namespace Code.Editor
 
             SirenixEditorGUI.BeginBox();
 
-            EditorGUILayout.LabelField("📁 Save Location", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("Save Location", EditorStyles.boldLabel);
             EditorGUILayout.HelpBox(path, MessageType.Info);
 
             GUILayout.Space(10);
@@ -120,13 +120,13 @@ namespace Code.Editor
                 }
                 catch (Exception e)
                 {
-                    DecodedPrefsData = $"❌ Failed to decode PlayerPrefs:\n{e.Message}";
-                    PrefsMessage = "❌ PlayerPrefs data decode failed.";
+                    DecodedPrefsData = $"Failed to decode PlayerPrefs:\n{e.Message}";
+                    PrefsMessage = "PlayerPrefs data decode failed.";
                 }
             }
             else
             {
-                PrefsMessage = "❌ No PlayerPrefs data found.";
+                PrefsMessage = "No PlayerPrefs data found.";
             }
         }
 
@@ -143,13 +143,13 @@ namespace Code.Editor
                 }
                 catch (Exception e)
                 {
-                    DecodedJsonData = $"❌ Failed to read JSON:\n{e.Message}";
-                    JsonMessage = "❌ Failed to load JSON file.";
+                    DecodedJsonData = $"Failed to read JSON:\n{e.Message}";
+                    JsonMessage = "Failed to load JSON file.";
                 }
             }
             else
             {
-                JsonMessage = "❌ No JSON file found.";
+                JsonMessage = "No JSON file found.";
             }
         }
 
@@ -166,13 +166,13 @@ namespace Code.Editor
                 }
                 catch (Exception e)
                 {
-                    DecodedXmlData = $"❌ Failed to read XML:\n{e.Message}";
-                    XmlMessage = "❌ Failed to load XML file.";
+                    DecodedXmlData = $"Failed to read XML:\n{e.Message}";
+                    XmlMessage = "Failed to load XML file.";
                 }
             }
             else
             {
-                XmlMessage = "❌ No XML file found.";
+                XmlMessage = "No XML file found.";
             }
         }
 
@@ -182,7 +182,7 @@ namespace Code.Editor
             {
                 PlayerPrefs.DeleteKey(PlayerPrefsKey);
                 PlayerPrefs.Save();
-                Debug.Log("🧹 PlayerPrefs deleted.");
+                Debug.Log("PlayerPrefs deleted.");
                 Refresh();
             }
         }
@@ -192,7 +192,7 @@ namespace Code.Editor
             if (File.Exists(JsonFilePath))
             {
                 File.Delete(JsonFilePath);
-                Debug.Log("🧹 JSON file deleted.");
+                Debug.Log("JSON file deleted.");
                 Refresh();
             }
         }
@@ -202,7 +202,7 @@ namespace Code.Editor
             if (File.Exists(XmlFilePath))
             {
                 File.Delete(XmlFilePath);
-                Debug.Log("🧹 XML file deleted.");
+                Debug.Log("XML file deleted.");
                 Refresh();
             }
         }
