@@ -100,3 +100,35 @@ MonoBehaviour:
       HasEvent: 1
       EventName: Skyfall
       Description: Fireballs rain every 10 seconds
+  - LevelId: 0
+    LevelName: 
+    RequiredXP: 0
+    Reward:
+      Gold: 0
+      Gems: 0
+    RewardItems: []
+    EnemyWaves: []
+    IsBossLevel: 0
+    UnlockAtLevel: 0
+    UnlockConditions: []
+    ActiveBuffs: []
+    EventData:
+      HasEvent: 0
+      EventName: 
+      Description: 
+  - LevelId: 0
+    LevelName: 
+    RequiredXP: 0
+    Reward:
+      Gold: 0
+      Gems: 0
+    RewardItems: []
+    EnemyWaves: []
+    IsBossLevel: 0
+    UnlockAtLevel: 0
+    UnlockConditions: []
+    ActiveBuffs: []
+    EventData:
+      HasEvent: 0
+      EventName: 
+      Description: 
