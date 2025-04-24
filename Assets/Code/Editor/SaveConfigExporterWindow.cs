@@ -19,6 +19,8 @@ namespace Code.Editor
         [InlineEditor(InlineEditorObjectFieldModes.Boxed)]
         [SerializeField] private ScriptableObject _targetAsset;
 
+        private ScriptableObject _lastTargetAsset;
+        
         private List<string> _jsonFiles = new();
 
         private string SaveFolderPath => Path.Combine(Application.dataPath, FolderName);
@@ -44,7 +46,15 @@ namespace Code.Editor
         protected override void DrawEditor(int index)
         {
             DrawTargetAssetSection();
-            if (_targetAsset == null) return;
+
+            if (_targetAsset == null)
+                return;
+
+            if (_targetAsset != _lastTargetAsset)
+            {
+                _lastTargetAsset = _targetAsset;
+                RefreshJsonFiles();
+            }
 
             GUILayout.Space(10);
             base.DrawEditor(index);
@@ -69,10 +79,12 @@ namespace Code.Editor
             SirenixEditorGUI.BeginBox("Save / Load JSON");
 
             GUI.backgroundColor = new Color(0.4f, 1f, 0.4f);
-            if (GUILayout.Button("💾 Save New JSON", GUILayout.Height(30))) SaveNewJson();
+            if (GUILayout.Button("💾 Save New JSON", GUILayout.Height(30))) 
+                SaveNewJson();
 
             GUI.backgroundColor = new Color(1f, 0.85f, 0.3f);
-            if (GUILayout.Button("🔄 Refresh List", GUILayout.Height(30))) RefreshJsonFiles();
+            if (GUILayout.Button("🔄 Refresh List", GUILayout.Height(30))) 
+                RefreshJsonFiles();
 
             GUI.backgroundColor = Color.white;
             GUILayout.Space(10);
