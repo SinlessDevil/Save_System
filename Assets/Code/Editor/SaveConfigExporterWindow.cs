@@ -82,9 +82,20 @@ namespace Code.Editor
                         return;
                     }
 
-                    JsonUtility.FromJsonOverwrite(File.ReadAllText(JsonPath), _targetAsset);
+                    string file = File.ReadAllText(JsonPath);
+                    var wrapper = JsonUtility.FromJson<JsonWrapper>(file);
+                    
+                    string actualType = _targetAsset.GetType().Name;
+                    if (wrapper.Type != actualType)
+                    {
+                        Debug.LogWarning($"⚠ Type mismatch! JSON is for: {wrapper.Type}, expected: {actualType}");
+                        return;
+                    }
+
+                    JsonUtility.FromJsonOverwrite(wrapper.Json, _targetAsset);
                     EditorUtility.SetDirty(_targetAsset);
                     AssetDatabase.SaveAssets();
+
                     Debug.Log("📦 Loaded JSON and applied to ScriptableObject.");
                 }
                 catch (Exception e)
@@ -92,6 +103,7 @@ namespace Code.Editor
                     Debug.LogError($"❌ Failed to load JSON: {e}");
                 }
             }
+
 
             SirenixEditorGUI.EndBox();
         }
