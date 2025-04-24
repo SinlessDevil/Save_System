@@ -72,7 +72,7 @@ namespace Code.Editor
 
             if (_targetAsset == null)
             {
-                EditorGUILayout.HelpBox("⚠ Assign a ScriptableObject to export/import as JSON.", MessageType.Warning);
+                EditorGUILayout.HelpBox("Assign a ScriptableObject to export/import as JSON.", MessageType.Warning);
             }
         }
 
@@ -81,7 +81,7 @@ namespace Code.Editor
             SirenixEditorGUI.BeginBox("Save / Load JSON");
 
             GUI.backgroundColor = new Color(0.4f, 1f, 0.4f);
-            if (GUILayout.Button("💾 Save New JSON", GUILayout.Height(30))) 
+            if (GUILayout.Button("Save New JSON", GUILayout.Height(30))) 
                 SaveNewJson();
 
             GUI.backgroundColor = Color.white;
@@ -93,7 +93,7 @@ namespace Code.Editor
 
                 GUI.backgroundColor = new Color(1f, 0.85f, 0.3f);
                 GUILayoutOption[] options = { GUILayout.Width(position.width * 0.4f), GUILayout.Height(30) };
-                if (GUILayout.Button("📌 Overwrite Selected", options))
+                if (GUILayout.Button("Overwrite Selected", options))
                 {
                     OverwriteJsonFile(_jsonFiles[_selectedFileIndex]);
                 }
@@ -123,12 +123,12 @@ namespace Code.Editor
             {
                 string json = JsonUtility.ToJson(_targetAsset, true);
                 File.WriteAllText(path, json);
-                Debug.Log($"🔁 Overwrote JSON: {path}");
+                Debug.Log($"Overwrote JSON: {path}");
                 RefreshJsonFiles();
             }
             catch (Exception e)
             {
-                Debug.LogError($"❌ Failed to overwrite JSON: {e}");
+                Debug.LogError($"Failed to overwrite JSON: {e}");
             }
         }
 
@@ -164,12 +164,12 @@ namespace Code.Editor
                 string json = JsonUtility.ToJson(_targetAsset, true);
                 string path = GenerateJsonPath();
                 File.WriteAllText(path, json);
-                Debug.Log($"✅ Saved JSON to: {path}");
+                Debug.Log($"Saved JSON to: {path}");
                 RefreshJsonFiles();
             }
             catch (Exception e)
             {
-                Debug.LogError($"❌ Failed to save JSON: {e}");
+                Debug.LogError($"Failed to save JSON: {e}");
             }
         }
 
@@ -181,11 +181,11 @@ namespace Code.Editor
                 JsonUtility.FromJsonOverwrite(json, _targetAsset);
                 EditorUtility.SetDirty(_targetAsset);
                 AssetDatabase.SaveAssets();
-                Debug.Log($"📦 Loaded JSON from: {Path.GetFileName(path)}");
+                Debug.Log($"Loaded JSON from: {Path.GetFileName(path)}");
             }
             catch (Exception e)
             {
-                Debug.LogError($"❌ Failed to load JSON: {e}");
+                Debug.LogError($"Failed to load JSON: {e}");
             }
         }
 
@@ -194,12 +194,12 @@ namespace Code.Editor
             try
             {
                 File.Delete(path);
-                Debug.Log($"🧹 Deleted file: {Path.GetFileName(path)}");
+                Debug.Log($"Deleted file: {Path.GetFileName(path)}");
                 RefreshJsonFiles();
             }
             catch (Exception e)
             {
-                Debug.LogError($"❌ Failed to delete JSON: {e}");
+                Debug.LogError($"Failed to delete JSON: {e}");
             }
         }
 
