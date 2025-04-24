@@ -68,10 +68,17 @@ namespace Code.Editor
         {
             SirenixEditorGUI.BeginBox("Save / Load JSON");
 
+            GUI.backgroundColor = new Color(0.4f, 1f, 0.4f);
             if (GUILayout.Button("💾 Save New JSON", GUILayout.Height(30))) SaveNewJson();
-            if (GUILayout.Button("🔄 Refresh List", GUILayout.Height(25))) RefreshJsonFiles();
 
+            GUI.backgroundColor = new Color(1f, 0.85f, 0.3f);
+            if (GUILayout.Button("🔄 Refresh List", GUILayout.Height(30))) RefreshJsonFiles();
+
+            GUI.backgroundColor = Color.white;
             GUILayout.Space(10);
+
+            GUIStyle centerStyle = new GUIStyle(EditorStyles.label) { alignment = TextAnchor.MiddleCenter };
+            EditorGUILayout.LabelField("All Files", centerStyle);
 
             foreach (var filePath in _jsonFiles)
             {
@@ -86,19 +93,23 @@ namespace Code.Editor
             string fileName = Path.GetFileName(filePath);
             EditorGUILayout.BeginHorizontal();
 
+            GUI.backgroundColor = new Color(0.4f, 1f, 0.4f);
             if (GUILayout.Button("Load", GUILayout.Width(position.width * 0.3f)))
             {
                 LoadJsonToTarget(filePath);
             }
 
+            GUI.backgroundColor = Color.white;
             GUILayout.Label(fileName, GUILayout.ExpandWidth(true));
 
-            if (GUILayout.Button("🗑", GUILayout.Width(30)))
+            GUI.backgroundColor = new Color(1f, 0.4f, 0.4f);
+            if (GUILayout.Button("Delete", GUILayout.Width(200)))
             {
                 DeleteJsonFile(filePath);
                 return;
             }
 
+            GUI.backgroundColor = Color.white;
             EditorGUILayout.EndHorizontal();
         }
 
