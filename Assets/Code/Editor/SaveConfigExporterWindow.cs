@@ -25,6 +25,8 @@ namespace Code.Editor
 
         private string SaveFolderPath => Path.Combine(Application.dataPath, FolderName);
 
+        private int _selectedFileIndex = 0;
+        
         private string GenerateJsonPath() =>
             _targetAsset != null ? Path.Combine(SaveFolderPath, $"{_targetAsset.name}_{DateTime.Now:yyyyMMdd_HHmmss}.json") : null;
 
@@ -82,12 +84,27 @@ namespace Code.Editor
             if (GUILayout.Button("💾 Save New JSON", GUILayout.Height(30))) 
                 SaveNewJson();
 
-            GUI.backgroundColor = new Color(1f, 0.85f, 0.3f);
-            if (GUILayout.Button("🔄 Refresh List", GUILayout.Height(30))) 
-                RefreshJsonFiles();
-
             GUI.backgroundColor = Color.white;
             GUILayout.Space(10);
+
+            if (_jsonFiles.Count > 0)
+            {
+                GUILayout.BeginHorizontal();
+
+                GUI.backgroundColor = new Color(1f, 0.85f, 0.3f);
+                GUILayoutOption[] options = { GUILayout.Width(position.width * 0.4f), GUILayout.Height(30) };
+                if (GUILayout.Button("📌 Overwrite Selected", options))
+                {
+                    OverwriteJsonFile(_jsonFiles[_selectedFileIndex]);
+                }
+
+                GUI.backgroundColor = Color.white;
+                _selectedFileIndex = EditorGUILayout
+                    .Popup(_selectedFileIndex, _jsonFiles.Select(Path.GetFileName)
+                    .ToArray());
+
+                GUILayout.EndHorizontal();
+            }
 
             GUIStyle centerStyle = new GUIStyle(EditorStyles.label) { alignment = TextAnchor.MiddleCenter };
             EditorGUILayout.LabelField("All Files", centerStyle);
@@ -98,6 +115,21 @@ namespace Code.Editor
             }
 
             SirenixEditorGUI.EndBox();
+        }
+
+        private void OverwriteJsonFile(string path)
+        {
+            try
+            {
+                string json = JsonUtility.ToJson(_targetAsset, true);
+                File.WriteAllText(path, json);
+                Debug.Log($"🔁 Overwrote JSON: {path}");
+                RefreshJsonFiles();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"❌ Failed to overwrite JSON: {e}");
+            }
         }
 
         private void DrawJsonFileEntry(string filePath)

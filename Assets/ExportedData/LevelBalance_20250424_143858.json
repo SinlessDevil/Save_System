@@ -1,4 +1,177 @@
 {
-    "__type": "LevelBalanceData",
-    "data": "{\n    \"Levels\": [\n        {\n            \"LevelId\": 1,\n            \"LevelName\": \"Forest Start\",\n            \"RequiredXP\": 100,\n            \"Reward\": {\n                \"Gold\": 50,\n                \"Gems\": 5\n            },\n            \"RewardItems\": [\n                \"sword_wood\",\n                \"potion_small\"\n            ],\n            \"EnemyWaves\": [\n                {\n                    \"EnemyType\": \"goblin\",\n                    \"Count\": 5,\n                    \"SpawnDelay\": 1.0\n                },\n                {\n                    \"EnemyType\": \"orc\",\n                    \"Count\": 2,\n                    \"SpawnDelay\": 2.0\n                }\n            ],\n            \"IsBossLevel\": false,\n            \"UnlockAtLevel\": 0,\n            \"UnlockConditions\": [\n                {\n                    \"Description\": \"No special condition\",\n                    \"RequiresItem\": false,\n                    \"RequiredItemId\": \"\"\n                }\n            ],\n            \"ActiveBuffs\": [\n                {\n                    \"BuffName\": \"Beginner’s Luck\",\n                    \"Duration\": 30.0,\n                    \"Value\": 1.2000000476837159\n                }\n            ],\n            \"EventData\": {\n                \"HasEvent\": false,\n                \"EventName\": \"\",\n                \"Description\": \"\"\n            }\n        },\n        {\n            \"LevelId\": 2,\n            \"LevelName\": \"Cave of Trials\",\n            \"RequiredXP\": 300,\n            \"Reward\": {\n                \"Gold\": 100,\n                \"Gems\": 10\n            },\n            \"RewardItems\": [\n                \"shield_basic\",\n                \"potion_medium\"\n            ],\n            \"EnemyWaves\": [\n                {\n                    \"EnemyType\": \"bat\",\n                    \"Count\": 8,\n                    \"SpawnDelay\": 0.800000011920929\n                },\n                {\n                    \"EnemyType\": \"spider\",\n                    \"Count\": 4,\n                    \"SpawnDelay\": 1.2000000476837159\n                }\n            ],\n            \"IsBossLevel\": false,\n            \"UnlockAtLevel\": 1,\n            \"UnlockConditions\": [\n                {\n                    \"Description\": \"Defeat Level 1\",\n                    \"RequiresItem\": false,\n                    \"RequiredItemId\": \"\"\n                }\n            ],\n            \"ActiveBuffs\": [\n                {\n                    \"BuffName\": \"Dark Vision\",\n                    \"Duration\": 45.0,\n                    \"Value\": 1.100000023841858\n                }\n            ],\n            \"EventData\": {\n                \"HasEvent\": true,\n                \"EventName\": \"Darkness Falls\",\n                \"Description\": \"Visibility is reduced in this level\"\n            }\n        },\n        {\n            \"LevelId\": 3,\n            \"LevelName\": \"Dragon's Peak\",\n            \"RequiredXP\": 700,\n            \"Reward\": {\n                \"Gold\": 300,\n                \"Gems\": 25\n            },\n            \"RewardItems\": [\n                \"dragon_slayer\",\n                \"revive_token\"\n            ],\n            \"EnemyWaves\": [\n                {\n                    \"EnemyType\": \"dragon\",\n                    \"Count\": 1,\n                    \"SpawnDelay\": 5.0\n                }\n            ],\n            \"IsBossLevel\": true,\n            \"UnlockAtLevel\": 2,\n            \"UnlockConditions\": [\n                {\n                    \"Description\": \"Must own Fire Shield\",\n                    \"RequiresItem\": true,\n                    \"RequiredItemId\": \"fire_shield\"\n                }\n            ],\n            \"ActiveBuffs\": [\n                {\n                    \"BuffName\": \"Boss Rage\",\n                    \"Duration\": 60.0,\n                    \"Value\": 2.0\n                }\n            ],\n            \"EventData\": {\n                \"HasEvent\": true,\n                \"EventName\": \"Skyfall\",\n                \"Description\": \"Fireballs rain every 10 seconds\"\n            }\n        },\n        {\n            \"LevelId\": 0,\n            \"LevelName\": \"\",\n            \"RequiredXP\": 0,\n            \"Reward\": {\n                \"Gold\": 0,\n                \"Gems\": 0\n            },\n            \"RewardItems\": [],\n            \"EnemyWaves\": [],\n            \"IsBossLevel\": false,\n            \"UnlockAtLevel\": 0,\n            \"UnlockConditions\": [],\n            \"ActiveBuffs\": [],\n            \"EventData\": {\n                \"HasEvent\": false,\n                \"EventName\": \"\",\n                \"Description\": \"\"\n            }\n        },\n        {\n            \"LevelId\": 0,\n            \"LevelName\": \"\",\n            \"RequiredXP\": 0,\n            \"Reward\": {\n                \"Gold\": 0,\n                \"Gems\": 0\n            },\n            \"RewardItems\": [],\n            \"EnemyWaves\": [],\n            \"IsBossLevel\": false,\n            \"UnlockAtLevel\": 0,\n            \"UnlockConditions\": [],\n            \"ActiveBuffs\": [],\n            \"EventData\": {\n                \"HasEvent\": false,\n                \"EventName\": \"\",\n                \"Description\": \"\"\n            }\n        }\n    ]\n}"
+    "Levels": [
+        {
+            "LevelId": 1,
+            "LevelName": "Forest Start",
+            "RequiredXP": 100,
+            "Reward": {
+                "Gold": 50,
+                "Gems": 5
+            },
+            "RewardItems": [
+                "sword_wood",
+                "potion_small"
+            ],
+            "EnemyWaves": [
+                {
+                    "EnemyType": "goblin",
+                    "Count": 5,
+                    "SpawnDelay": 1.0
+                },
+                {
+                    "EnemyType": "orc",
+                    "Count": 2,
+                    "SpawnDelay": 2.0
+                }
+            ],
+            "IsBossLevel": false,
+            "UnlockAtLevel": 0,
+            "UnlockConditions": [
+                {
+                    "Description": "No special condition",
+                    "RequiresItem": false,
+                    "RequiredItemId": ""
+                }
+            ],
+            "ActiveBuffs": [
+                {
+                    "BuffName": "Beginner’s Luck",
+                    "Duration": 30.0,
+                    "Value": 1.2000000476837159
+                }
+            ],
+            "EventData": {
+                "HasEvent": false,
+                "EventName": "",
+                "Description": ""
+            }
+        },
+        {
+            "LevelId": 2,
+            "LevelName": "Cave of Trials",
+            "RequiredXP": 300,
+            "Reward": {
+                "Gold": 100,
+                "Gems": 10
+            },
+            "RewardItems": [
+                "shield_basic",
+                "potion_medium"
+            ],
+            "EnemyWaves": [
+                {
+                    "EnemyType": "bat",
+                    "Count": 8,
+                    "SpawnDelay": 0.800000011920929
+                },
+                {
+                    "EnemyType": "spider",
+                    "Count": 4,
+                    "SpawnDelay": 1.2000000476837159
+                }
+            ],
+            "IsBossLevel": false,
+            "UnlockAtLevel": 1,
+            "UnlockConditions": [
+                {
+                    "Description": "Defeat Level 1",
+                    "RequiresItem": false,
+                    "RequiredItemId": ""
+                }
+            ],
+            "ActiveBuffs": [
+                {
+                    "BuffName": "Dark Vision",
+                    "Duration": 45.0,
+                    "Value": 1.100000023841858
+                }
+            ],
+            "EventData": {
+                "HasEvent": true,
+                "EventName": "Darkness Falls",
+                "Description": "Visibility is reduced in this level"
+            }
+        },
+        {
+            "LevelId": 3,
+            "LevelName": "Dragon's Peak",
+            "RequiredXP": 700,
+            "Reward": {
+                "Gold": 300,
+                "Gems": 25
+            },
+            "RewardItems": [
+                "dragon_slayer",
+                "revive_token"
+            ],
+            "EnemyWaves": [
+                {
+                    "EnemyType": "dragon",
+                    "Count": 1,
+                    "SpawnDelay": 5.0
+                }
+            ],
+            "IsBossLevel": true,
+            "UnlockAtLevel": 2,
+            "UnlockConditions": [
+                {
+                    "Description": "Must own Fire Shield",
+                    "RequiresItem": true,
+                    "RequiredItemId": "fire_shield"
+                }
+            ],
+            "ActiveBuffs": [
+                {
+                    "BuffName": "Boss Rage",
+                    "Duration": 60.0,
+                    "Value": 2.0
+                }
+            ],
+            "EventData": {
+                "HasEvent": true,
+                "EventName": "Skyfall",
+                "Description": "Fireballs rain every 10 seconds"
+            }
+        },
+        {
+            "LevelId": 0,
+            "LevelName": "",
+            "RequiredXP": 0,
+            "Reward": {
+                "Gold": 0,
+                "Gems": 0
+            },
+            "RewardItems": [],
+            "EnemyWaves": [],
+            "IsBossLevel": false,
+            "UnlockAtLevel": 0,
+            "UnlockConditions": [],
+            "ActiveBuffs": [],
+            "EventData": {
+                "HasEvent": false,
+                "EventName": "",
+                "Description": ""
+            }
+        },
+        {
+            "LevelId": 0,
+            "LevelName": "",
+            "RequiredXP": 0,
+            "Reward": {
+                "Gold": 0,
+                "Gems": 0
+            },
+            "RewardItems": [],
+            "EnemyWaves": [],
+            "IsBossLevel": false,
+            "UnlockAtLevel": 0,
+            "UnlockConditions": [],
+            "ActiveBuffs": [],
+            "EventData": {
+                "HasEvent": false,
+                "EventName": "",
+                "Description": ""
+            }
+        }
+    ]
 }
