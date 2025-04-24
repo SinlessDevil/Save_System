@@ -1,0 +1,82 @@
+{
+    "Regions": [
+        {
+            "RegionId": "northern_vale",
+            "DisplayName": "Northern Vale",
+            "Biome": 2,
+            "UnlockCost": {
+                "Gold": 1000,
+                "Gems": 25
+            },
+            "PointsOfInterest": [
+                {
+                    "Name": "Frozen Lake",
+                    "IsLandmark": true,
+                    "Description": "A mysterious lake that never thaws."
+                },
+                {
+                    "Name": "Abandoned Watchtower",
+                    "IsLandmark": false,
+                    "Description": "Ruins of a long-forgotten guard post."
+                }
+            ],
+            "TravelEvents": [
+                {
+                    "EventType": "Blizzard",
+                    "Chance": 0.30000001192092898,
+                    "EffectDescription": "Slows down travel by 50%."
+                }
+            ]
+        },
+        {
+            "RegionId": "sunken_dunes",
+            "DisplayName": "Sunken Dunes",
+            "Biome": 1,
+            "UnlockCost": {
+                "Gold": 2000,
+                "Gems": 40
+            },
+            "PointsOfInterest": [
+                {
+                    "Name": "Buried Temple",
+                    "IsLandmark": true,
+                    "Description": "An ancient temple beneath the sands."
+                },
+                {
+                    "Name": "Mirage Oasis",
+                    "IsLandmark": false,
+                    "Description": "Sometimes it's real, sometimes it's not."
+                }
+            ],
+            "TravelEvents": [
+                {
+                    "EventType": "Sandstorm",
+                    "Chance": 0.4000000059604645,
+                    "EffectDescription": "Visibility drops and enemies ambush more often."
+                }
+            ]
+        },
+        {
+            "RegionId": "",
+            "DisplayName": "",
+            "Biome": 0,
+            "UnlockCost": {
+                "Gold": 0,
+                "Gems": 0
+            },
+            "PointsOfInterest": [],
+            "TravelEvents": []
+        },
+        {
+            "RegionId": "",
+            "DisplayName": "",
+            "Biome": 0,
+            "UnlockCost": {
+                "Gold": 0,
+                "Gems": 0
+            },
+            "PointsOfInterest": [],
+            "TravelEvents": []
+        }
+    ]
+}

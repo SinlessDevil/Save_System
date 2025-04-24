@@ -1,0 +1,32 @@
+{
+    "Regions": [
+        {
+            "RegionId": "sunken_dunes",
+            "DisplayName": "Sunken Dunes",
+            "Biome": 1,
+            "UnlockCost": {
+                "Gold": 2000,
+                "Gems": 40
+            },
+            "PointsOfInterest": [
+                {
+                    "Name": "Buried Temple",
+                    "IsLandmark": true,
+                    "Description": "An ancient temple beneath the sands."
+                },
+                {
+                    "Name": "Mirage Oasis",
+                    "IsLandmark": false,
+                    "Description": "Sometimes it's real, sometimes it's not."
+                }
+            ],
+            "TravelEvents": [
+                {
+                    "EventType": "Sandstorm",
+                    "Chance": 0.4000000059604645,
+                    "EffectDescription": "Visibility drops and enemies ambush more often."
+                }
+            ]
+        }
+    ]
+}
