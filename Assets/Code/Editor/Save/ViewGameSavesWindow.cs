@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace Code.Editor
 {
-    public class SaveWindow : OdinEditorWindow
+    public class ViewGameSavesWindow : OdinEditorWindow
     {
         private const string PlayerPrefsKey = "PlayerData";
         private const string JsonFileName = "player_data.json";
@@ -38,10 +38,10 @@ namespace Code.Editor
         private bool showJson = true;
         private bool showXml = true;
 
-        [MenuItem("Tools/Save Window/All Saves Window")]
+        [MenuItem("Tools/Save System Kit/View Game Saves Window")]
         private static void OpenWindow()
         {
-            var window = GetWindow<SaveWindow>();
+            var window = GetWindow<ViewGameSavesWindow>();
             window.titleContent = new GUIContent("All Saves Window");
             window.minSize = new Vector2(500, 600);
             window.Show();
