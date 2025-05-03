@@ -61,7 +61,8 @@ namespace Code.Editor
         private void DrawFoldoutSection(ref bool foldout, string title, string path, string message, string data, ref Vector2 scroll, Action refresh, Action delete)
         {
             foldout = SirenixEditorGUI.Foldout(foldout, title);
-            if (!foldout) return;
+            if (!foldout) 
+                return;
 
             SirenixEditorGUI.BeginBox();
 
@@ -83,12 +84,12 @@ namespace Code.Editor
 
             GUILayout.Space(10);
             GUI.backgroundColor = new Color(0.6f, 0.9f, 1f);
-            if (GUILayout.Button("🔄 Refresh", GUILayout.Height(35)))
+            if (GUILayout.Button("Refresh", GUILayout.Height(35)))
                 refresh.Invoke();
 
             GUILayout.Space(5);
             GUI.backgroundColor = new Color(1f, 0.4f, 0.4f);
-            if (GUILayout.Button("🗑 Delete", GUILayout.Height(35)))
+            if (GUILayout.Button("Delete", GUILayout.Height(35)))
                 delete.Invoke();
 
             GUI.backgroundColor = Color.white;
@@ -182,7 +183,7 @@ namespace Code.Editor
             {
                 PlayerPrefs.DeleteKey(PlayerPrefsKey);
                 PlayerPrefs.Save();
-                Debug.Log("PlayerPrefs deleted.");
+                Debug.Log("PlayerPrefs file deleted.");
                 Refresh();
             }
         }
